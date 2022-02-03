@@ -21,7 +21,6 @@ body {
 
 a {
 	text-decoration: none;
-	text-indent: 0;
 	color: var(--links);
 	margin: 0 0.5rem;
 	transition: all 0.3s ease-in-out;
@@ -33,4 +32,7 @@ a:hover {
 
 p {
 	text-indent: 1rem;
+}
+ul {
+	padding: 0 2.85rem;
 }

@@ -1,22 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
-import type { NextPage } from 'next'
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import {
-	ContainerStyle,
-	FooterStyle,
+	AsideButtonStyle,
+	BlogListStyle,
 	HeaderBottomStyle,
 	HeaderTopStyle,
 	MainStyle,
-} from '../styles/indexStyles'
+} from '../styles/homeStyles'
 
-const Home: NextPage = () => {
+import { getPrismicClient } from '../utils/prismic'
+import checkEnv from '../utils/checkEnv'
+import { RichText } from 'prismic-reactjs'
+import { PostType } from '../types/post'
+
+const Home: NextPage = ({
+	posts,
+	age,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
 	return (
 		<>
 			<Head>
 				<title>Augusto Pieper</title>
 			</Head>
 			<MainStyle>
-				<ContainerStyle>
+				<header>
 					<HeaderTopStyle>
 						<div>
 							<div>
@@ -25,12 +34,12 @@ const Home: NextPage = () => {
 							</div>
 							<p>
 								Besides from my passion to programming, I&apos;m
-								18 years old, knife collector, linux enthusiast,
-								privacy/FOSS activist, skateboarder and nu metal
-								fan. Lately I&apos;ve been studying a lot of
-								systems programming with Rust and C++ to have a
-								better understanding of how everything works and
-								I&apos;m loving it.
+								{age} years old, knife collector, linux
+								enthusiast, privacy/FOSS activist, skateboarder
+								and nu metal fan. Lately I&apos;ve been studying
+								a lot of systems programming with Rust and C++
+								to have a better understanding of how everything
+								works and I&apos;m loving it.
 							</p>
 						</div>
 						<img src="/profile-pic.jpg" alt="profile picture" />
@@ -58,8 +67,12 @@ const Home: NextPage = () => {
 							Email
 						</a>
 					</HeaderBottomStyle>
-				</ContainerStyle>
-				<ContainerStyle>
+				</header>
+				<Link href={'/blog'} passHref>
+					<AsideButtonStyle>BLOG</AsideButtonStyle>
+				</Link>
+				{/* <button>BLOG</button> */}
+				<section>
 					<h2>Skills</h2>
 					<ul>
 						<li>Web with NextJS and Svelte</li>
@@ -71,8 +84,8 @@ const Home: NextPage = () => {
 						<li>Git and Github</li>
 						<li>Native Portuguese / intermediary English</li>
 					</ul>
-				</ContainerStyle>
-				<ContainerStyle>
+				</section>
+				<section>
 					<h2>Education</h2>
 					<ul>
 						<li>
@@ -111,8 +124,8 @@ const Home: NextPage = () => {
 							</p>
 						</li>
 					</ul>
-				</ContainerStyle>
-				<ContainerStyle>
+				</section>
+				<section>
 					<h2>Experience</h2>
 					<ul>
 						<a
@@ -143,14 +156,42 @@ const Home: NextPage = () => {
 							</p>
 						</li>
 					</ul>
-				</ContainerStyle>
-				<ContainerStyle>
+				</section>
+				<section>
 					<h2>Blog</h2>
-				</ContainerStyle>
-				<FooterStyle>&copy;2022 - Augusto do Monte Pieper</FooterStyle>
+					<BlogListStyle>
+						{posts.map((post: PostType) => (
+							<li key={post.id}>
+								<Link href={`/blog/${post.uid}`} passHref>
+									<h3>{post.uid}</h3>
+								</Link>
+								<RichText render={post.data.summary} />
+							</li>
+						))}
+					</BlogListStyle>
+				</section>
+				<footer>&copy;2022 - Augusto do Monte Pieper</footer>
 			</MainStyle>
 		</>
 	)
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async () => {
+	if (!checkEnv()) return { props: {} }
+
+	const client = getPrismicClient()
+	const posts = await client.getAllByType('blog-post', {})
+	const age =
+		((new Date() as any) - (new Date('2003-05-15') as any)) /
+		(1000 * 60 * 60 * 24 * 365)
+
+	return {
+		props: {
+			posts,
+			age: ' ' + age.toString().substring(0, 2),
+		},
+		revalidate: 525600,
+	}
+}
