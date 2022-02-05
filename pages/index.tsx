@@ -22,14 +22,14 @@ const Home: NextPage = ({
 	return (
 		<>
 			<Head>
-				<title>Augusto Pieper</title>
+				<title>Augusto Codreanu</title>
 			</Head>
 			<MainStyle>
 				<header>
 					<HeaderTopStyle>
 						<div>
 							<div>
-								<h1>Augusto do Monte Pieper</h1>
+								<h1>Augusto, </h1>
 								<h2>Fullstack web developer</h2>
 							</div>
 							<p>
@@ -71,7 +71,6 @@ const Home: NextPage = ({
 				<Link href={'/blog'} passHref>
 					<AsideButtonStyle>BLOG</AsideButtonStyle>
 				</Link>
-				{/* <button>BLOG</button> */}
 				<section>
 					<h2>Skills</h2>
 					<ul>

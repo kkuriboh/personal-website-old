@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import theme from './themes'
 
 export const MainStyle = styled.main`
 	section,
 	header,
 	footer {
-		color: var(--foreground);
-		outline: 1px solid var(--foreground);
+		color: ${theme.colors.foreground};
+		outline: 1px solid ${theme.colors.foreground};
 		position: relative;
 		width: 70%;
 		margin: 2rem auto;
@@ -14,13 +15,12 @@ export const MainStyle = styled.main`
 		left: 0.5rem;
 		animation: fakeMoveUp 0.3s 0.6s forwards;
 		/* transform: translate(0.5rem, 0.5rem); */
-		background-color: var(--background);
+		background-color: ${theme.colors.background};
 
 		::before {
 			content: '';
 			width: 100%;
 			height: 100%;
-			background-color: var(--foreground);
 			position: absolute;
 			z-index: -1;
 			top: 0;
@@ -35,6 +35,7 @@ export const MainStyle = styled.main`
 			}
 			100% {
 				transform: translate(0.5rem, 0.5rem);
+				background-color: ${theme.colors.foreground};
 			}
 		}
 		@keyframes fakeMoveUp {
@@ -77,7 +78,7 @@ export const HeaderTopStyle = styled.div`
 
 	img {
 		border-radius: 50%;
-		border: 0.2em solid var(--foreground);
+		border: 0.2em solid ${theme.colors.foreground};
 		width: 14rem;
 		height: 14rem;
 	}
@@ -102,27 +103,27 @@ export const AsideButtonStyle = styled.button`
 	bottom: 2rem;
 	right: 2rem;
 	padding: 0.5rem 2rem;
-	border: 1px solid var(--foreground);
-	background-color: var(--background);
-	color: var(--foreground);
+	border: 1px solid ${theme.colors.foreground};
+	background-color: ${theme.colors.background};
+	color: ${theme.colors.foreground};
 	transition: ease-out 0.6s;
 	cursor: pointer;
 	:hover {
-		color: var(--background);
-		box-shadow: inset 6rem 0 0 0 var(--foreground);
+		color: ${theme.colors.background};
+		box-shadow: inset 12rem 0 0 0 ${theme.colors.foreground};
 	}
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 800px) {
 		bottom: 3rem;
 		right: -1.5rem;
 		z-index: 3;
 		height: min-content;
-		rotate: -90deg;
+		transform: rotate(-90deg);
 	}
 `
 export const BlogListStyle = styled.ul`
 	list-style: none;
 	h3 {
-		color: var(--links);
+		color: ${theme.colors.links};
 		transition: all 0.3s ease-in-out;
 		cursor: pointer;
 		font-size: x-large;

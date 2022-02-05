@@ -1,3 +1,10 @@
+/*  ============== FONT SOURCE ============= */
+/*	https://www.nerdfonts.com/font-downloads */
+@font-face {
+	font-family: 'terminess';
+	src: url('/terminess.ttf');
+}
+
 :root {
 	--background: #0d0d0d;
 	--foreground: #f5f5f5;
@@ -6,8 +13,6 @@
 
 html,
 body {
-	padding: 0;
-	margin: 0;
 	font-family: 'Roboto', sans-serif;
 }
 
@@ -16,6 +21,8 @@ body {
 }
 
 * {
+	padding: 0;
+	margin: 0;
 	box-sizing: border-box;
 }
 

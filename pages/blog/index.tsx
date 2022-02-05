@@ -1,41 +1,47 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Nav from '../../components/nav'
+import PostPreview from '../../components/postPreview'
+import { BlogMainStyle, HeaderStyle } from '../../styles/BlogHomeStyle'
+import { PostType } from '../../types/post'
 import checkEnv from '../../utils/checkEnv'
 import { getPrismicClient } from '../../utils/prismic'
 
 export default function Blog({
 	posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-	if (process.env.NODE_ENV !== 'development') {
-		return (
-			<div
-				style={{
-					width: '100vw',
-					height: '100vh',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}
-			>
-				<span
-					style={{
-						color: '#fff',
-						fontSize: '4rem',
-					}}
-				>
-					WORK IN PROGRESS...
-				</span>
-			</div>
-		)
-	}
+	// if (process.env.NODE_ENV !== 'development') {
+	// 	return (
+	// 		<div
+	// 			style={{
+	// 				width: '100vw',
+	// 				height: '100vh',
+	// 				display: 'flex',
+	// 				justifyContent: 'center',
+	// 				alignItems: 'center',
+	// 			}}
+	// 		>
+	// 			<span
+	// 				style={{
+	// 					color: '#fff',
+	// 					fontSize: '4rem',
+	// 				}}
+	// 			>
+	// 				WORK IN PROGRESS...
+	// 			</span>
+	// 		</div>
+	// 	)
+	// }
 	return (
 		<>
-			<header>
+			<HeaderStyle>
 				<Nav latest_post_uid={posts[0].uid} />
-			</header>
-			<main>
-				<h1 style={{ color: 'white' }}>Blog</h1>
-			</main>
+			</HeaderStyle>
+			<BlogMainStyle>
+				<h1>Blog</h1>
+				{posts.map((post: PostType) => (
+					<PostPreview key={post.id} post={post} />
+				))}
+			</BlogMainStyle>
 		</>
 	)
 }
@@ -50,6 +56,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			direction: 'desc',
 		},
 	})
+	// console.log(posts[0].data)
 
 	return {
 		props: {
