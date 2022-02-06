@@ -22,7 +22,7 @@ const Home: NextPage = ({
 	return (
 		<>
 			<Head>
-				<title>Augusto Codreanu</title>
+				<title>Augusto Pieper</title>
 			</Head>
 			<MainStyle>
 				<header>
@@ -169,7 +169,9 @@ const Home: NextPage = ({
 						))}
 					</BlogListStyle>
 				</section>
-				<footer>&copy;2022 - Augusto do Monte Pieper</footer>
+				<footer>
+					&copy;{new Date().getFullYear()} - Augusto do Monte Pieper
+				</footer>
 			</MainStyle>
 		</>
 	)
@@ -181,7 +183,9 @@ export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
 	const client = getPrismicClient()
-	const posts = await client.getAllByType('blog-post', {})
+	const posts = await client.getAllByType('blog-post', {
+		pageSize: 5,
+	})
 	const age =
 		((new Date() as any) - (new Date('2003-05-15') as any)) /
 		(1000 * 60 * 60 * 24 * 365)

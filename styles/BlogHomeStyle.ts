@@ -8,16 +8,15 @@ export const BlogMainStyle = styled.main`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: ${theme.colors.foreground};
+	color: ${theme.colors.secondary};
 	h1 {
 		margin: 3rem 0;
 	}
-`
 
-export const HeaderStyle = styled.header`
-	position: sticky;
-	position: -webkit-sticky;
-	top: 0;
-	z-index: 1;
-	background: ${theme.colors.background};
+	@media screen and (max-width: 600px) {
+		width: 90%;
+		h1 {
+			margin: 2rem 0;
+		}
+	}
 `

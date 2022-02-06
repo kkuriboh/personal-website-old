@@ -8,47 +8,57 @@ type Props = {
 	latest_post_uid: string
 }
 
-export default function Nav({ latest_post_uid }: Props) {
+export default function Header({ latest_post_uid }: Props) {
 	return (
-		<NavStyle>
-			<ul>
-				<Link href="/" passHref>
-					<Image
-						src={'/logo-placeholder.png'}
-						alt="logo"
-						width={40}
-						height={40}
-					/>
-				</Link>
-				<Link href={'/'} passHref>
-					<li data-text="HOME">HOME</li>
-				</Link>
-				<Link href={'/blog'} passHref>
-					<li data-text="BLOG">BLOG</li>
-				</Link>
-				<Link href={`/blog/${latest_post_uid}`} passHref>
-					<li data-text="LATEST-POST">LATEST-POST</li>
-				</Link>
-			</ul>
-		</NavStyle>
+		<HeaderStyle>
+			<NavStyle>
+				<ul>
+					<Link href="/" passHref>
+						<Image
+							src={'/logo-placeholder.png'}
+							alt="logo"
+							width={40}
+							height={40}
+						/>
+					</Link>
+					<Link href={'/'} passHref>
+						<li data-text="HOME">HOME</li>
+					</Link>
+					<Link href={'/blog'} passHref>
+						<li data-text="BLOG">BLOG</li>
+					</Link>
+					<Link href={`/blog/${latest_post_uid}`} passHref>
+						<li data-text="LATEST-POST">LATEST-POST</li>
+					</Link>
+				</ul>
+			</NavStyle>
+		</HeaderStyle>
 	)
 }
 
+const HeaderStyle = styled.header`
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	z-index: 1;
+	background: ${theme.colors.primary};
+`
+
 const NavStyle = styled.nav`
 	z-index: 10;
-	color: ${theme.colors.foreground};
+	color: ${theme.colors.secondary};
 	width: 100%;
 	display: flex;
 	justify-content: space-evenly;
 	box-shadow: 1px 1px 1px 1px ${theme.colors.links};
 	padding: 1rem;
-	/* background-color: ${theme.colors.background}; */
 	span {
 		cursor: pointer;
 	}
 	ul {
 		width: 100%;
 		justify-content: space-evenly;
+		align-items: center;
 		list-style: none;
 		display: flex;
 	}
@@ -58,11 +68,11 @@ const NavStyle = styled.nav`
 		color: transparent;
 		transition: 0.3s ease-in-out;
 		padding: 0.5rem 1rem;
-		text-align: center;
-		background-color: ${theme.colors.background};
+		height: min-content;
+		background-color: ${theme.colors.primary};
 	}
 	li:hover {
-		outline: 1px solid ${theme.colors.foreground};
+		outline: 1px solid ${theme.colors.secondary};
 	}
 	li:hover::before {
 		content: '';
@@ -72,23 +82,24 @@ const NavStyle = styled.nav`
 		z-index: -1;
 		top: 0;
 		left: 0;
-		background-color: ${theme.colors.foreground};
+		background-color: ${theme.colors.secondary};
 		transform: translate(0, 0);
-		animation: moveDown 0.3s 0.1s forwards;
-		background-color: ${theme.colors.foreground};
+		animation: btMoveDown 0.3s 0.1s forwards;
+		background-color: ${theme.colors.secondary};
 	}
 
-	@keyframes moveDown {
+	@keyframes btMoveDown {
 		75% {
-			transform: translate(0.4rem, 0.4rem);
+			transform: translate(0.3rem, 0.3rem);
 		}
 		100% {
-			transform: translate(0.3rem, 0.3rem);
-			background-color: ${theme.colors.foreground};
+			transform: translate(0.2rem, 0.2rem);
+			background-color: ${theme.colors.secondary};
 		}
 	}
 	li::after {
 		content: attr(data-text);
+		text-align: center;
 		position: absolute;
 		width: 100%;
 		height: 100%;

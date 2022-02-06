@@ -1,9 +1,18 @@
 import { RichTextBlock } from 'prismic-reactjs'
 
-type DataType = {
-	type: string
-	text: string
-	spans: []
+// type DataType = {
+// 	type: string
+// 	text: string
+// 	spans: []
+// }
+export type ItemType = {
+	content: RichTextBlock[]
+}
+export type BodySliceType = {
+	slice_type: string
+	slice_label: string
+	items: ItemType[]
+	primary: {}
 }
 export type PostDataType = {
 	title: RichTextBlock[]
@@ -18,11 +27,7 @@ export type PostDataType = {
 		copyright: string
 		url: string
 	}
-	content1: RichTextBlock[]
-	content2: RichTextBlock[]
-	content3: RichTextBlock[]
-	content4: RichTextBlock[]
-	content5: RichTextBlock[]
+	body: BodySliceType[]
 }
 export type PostType = {
 	id: string

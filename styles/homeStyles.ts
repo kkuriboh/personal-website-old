@@ -5,8 +5,8 @@ export const MainStyle = styled.main`
 	section,
 	header,
 	footer {
-		color: ${theme.colors.foreground};
-		outline: 1px solid ${theme.colors.foreground};
+		color: ${theme.colors.secondary};
+		outline: 1px solid ${theme.colors.secondary};
 		position: relative;
 		width: 70%;
 		margin: 2rem auto;
@@ -15,7 +15,7 @@ export const MainStyle = styled.main`
 		left: 0.5rem;
 		animation: fakeMoveUp 0.3s 0.6s forwards;
 		/* transform: translate(0.5rem, 0.5rem); */
-		background-color: ${theme.colors.background};
+		background-color: ${theme.colors.primary};
 
 		::before {
 			content: '';
@@ -35,7 +35,7 @@ export const MainStyle = styled.main`
 			}
 			100% {
 				transform: translate(0.5rem, 0.5rem);
-				background-color: ${theme.colors.foreground};
+				background-color: ${theme.colors.secondary};
 			}
 		}
 		@keyframes fakeMoveUp {
@@ -78,7 +78,7 @@ export const HeaderTopStyle = styled.div`
 
 	img {
 		border-radius: 50%;
-		border: 0.2em solid ${theme.colors.foreground};
+		border: 0.2em solid ${theme.colors.secondary};
 		width: 14rem;
 		height: 14rem;
 	}
@@ -103,14 +103,14 @@ export const AsideButtonStyle = styled.button`
 	bottom: 2rem;
 	right: 2rem;
 	padding: 0.5rem 2rem;
-	border: 1px solid ${theme.colors.foreground};
-	background-color: ${theme.colors.background};
-	color: ${theme.colors.foreground};
+	border: 1px solid ${theme.colors.secondary};
+	background-color: ${theme.colors.primary};
+	color: ${theme.colors.secondary};
 	transition: ease-out 0.6s;
 	cursor: pointer;
 	:hover {
-		color: ${theme.colors.background};
-		box-shadow: inset 12rem 0 0 0 ${theme.colors.foreground};
+		box-shadow: inset 12rem 0 0 0 ${theme.colors.secondary};
+		color: ${theme.colors.primary};
 	}
 	@media screen and (max-width: 800px) {
 		bottom: 3rem;
