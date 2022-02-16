@@ -1,10 +1,11 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+import theme from './themes'
 
 const GlobalStyle = createGlobalStyle`
 	:root {
-		--background: #0d0d0d;
-		--foreground: #f5f5f5;
-		--links: #999;
+		--background: ${theme.colors.primary};
+		--foreground: ${theme.colors.secondary};
+		--links: ${theme.colors.links};
 	}
 
 	html,
@@ -43,3 +44,51 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default GlobalStyle
+
+export const SectionWShadow = styled.section`
+	color: ${theme.colors.secondary};
+	outline: 1px solid ${theme.colors.secondary};
+	position: relative;
+	margin: 0 auto 2rem auto;
+	padding: 2rem;
+	top: 0.5rem;
+	left: 0.5rem;
+	animation: fakeMoveUp 0.3s 0.6s forwards;
+	background-color: ${theme.colors.primary};
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	::before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: -1;
+		top: 0;
+		left: 0;
+		animation: moveDown 0.3s 0.6s forwards;
+		transform: translate(0, 0);
+	}
+
+	@keyframes moveDown {
+		75% {
+			transform: translate(0.7rem, 0.7rem);
+		}
+		100% {
+			transform: translate(0.5rem, 0.5rem);
+			background-color: ${theme.colors.secondary};
+		}
+	}
+	@keyframes fakeMoveUp {
+		from {
+			top: 0.5rem;
+			left: 0.5rem;
+		}
+		to {
+			top: 0;
+			left: 0;
+		}
+	}
+`

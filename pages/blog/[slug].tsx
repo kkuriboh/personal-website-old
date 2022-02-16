@@ -1,12 +1,13 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import { RichText, RichTextBlock } from 'prismic-reactjs'
+import { RichText } from 'prismic-reactjs'
+
 import Footer from '../../components/footer'
 import Header from '../../components/header'
 import RichTextFilter from '../../components/richTextFilter'
+import { PostMainStyle, TopStyle } from '../../styles/postStyle'
 import { PostType } from '../../types/post'
 import checkEnv from '../../utils/checkEnv'
-
 import { getPrismicClient } from '../../utils/prismic'
 
 export default function Post({
@@ -43,13 +44,38 @@ export default function Post({
 				<title>{RichText.asText(typedContent.data.title)}</title>
 			</Head>
 			<Header latest_post_uid={latest_post_uid} />
-			<div style={{ color: 'white' }}>
-				{/* {content.data.body[0].items.map((item: any, index: number) => {
-					console.log(item)
-					return <RichText key={index} render={item.content!} />
-				})} */}
+			<PostMainStyle style={{ color: 'white' }}>
+				<TopStyle>
+					<h1>{RichText.asText(typedContent.data.title)}</h1>
+					<p>{typedContent.data.publish_date}</p>
+				</TopStyle>
+				{
+					//#region test
+					/* {content.data.body[0].items.map(
+					(item: ItemType, index: number) => {
+						// console.log(item.content[index])
+						// if ((item.content[index].type = Elements.image)) {
+						// 	return (
+						// 		<Image
+						// 			key={index}
+						// 			src={item.content[index].url}
+						// 			alt={item.content[index].alt}
+						// 			width={
+						// 				item.content[index].dimensions?.width
+						// 			}
+						// 			height={
+						// 				item.content[index].dimensions?.height
+						// 			}
+						// 		/>
+						// 	)
+						// }
+						return <RichText key={index} render={item.content!} />
+					}
+					)} */
+					//#endregion
+				}
 				<RichTextFilter body={content.data.body[0]} />
-			</div>
+			</PostMainStyle>
 			<Footer />
 		</>
 	)

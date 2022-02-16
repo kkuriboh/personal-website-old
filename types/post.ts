@@ -5,6 +5,15 @@ import { RichTextBlock } from 'prismic-reactjs'
 // 	text: string
 // 	spans: []
 // }
+export type ImageType = {
+	dimensions: {
+		width: number
+		height: number
+	}
+	alt: string
+	copyright: string
+	url: string
+}
 export type ItemType = {
 	content: RichTextBlock[]
 }
@@ -18,15 +27,7 @@ export type PostDataType = {
 	title: RichTextBlock[]
 	publish_date: string
 	summary: RichTextBlock[]
-	banner: {
-		dimensions: {
-			width: number
-			height: number
-		}
-		alt: string
-		copyright: string
-		url: string
-	}
+	banner: ImageType
 	body: BodySliceType[]
 }
 export type PostType = {
