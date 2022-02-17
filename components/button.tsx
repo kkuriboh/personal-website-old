@@ -18,6 +18,7 @@ const ButtonStyle = styled.button`
 	cursor: pointer;
 	transition: ease-out 0.6s;
 	border-radius: 5px;
+	margin: 0 1rem;
 
 	:hover {
 		box-shadow: inset 12rem 0 0 0 ${theme.colors.secondary};

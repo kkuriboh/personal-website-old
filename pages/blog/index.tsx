@@ -1,41 +1,17 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
-import Button from '../../components/button'
+
 import Footer from '../../components/footer'
 import Header from '../../components/header'
-import PostPreview from '../../components/postPreview'
-import { BlogMainStyle } from '../../styles/BlogHomeStyle'
-import { PostType } from '../../types/post'
+import PostList from '../../components/postList'
 import checkEnv from '../../utils/checkEnv'
 import { getPrismicClient } from '../../utils/prismic'
+
+import { BlogMainStyle } from '../../styles/BlogHomeStyle'
 
 export default function Blog({
 	posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-	const [limit, setLimit] = useState<number>(10)
-	// if (process.env.NODE_ENV !== 'development') {
-	// 	return (
-	// 		<div
-	// 			style={{
-	// 				width: '100vw',
-	// 				height: '100vh',
-	// 				display: 'flex',
-	// 				justifyContent: 'center',
-	// 				alignItems: 'center',
-	// 			}}
-	// 		>
-	// 			<span
-	// 				style={{
-	// 					color: '#fff',
-	// 					fontSize: '4rem',
-	// 				}}
-	// 			>
-	// 				WORK IN PROGRESS...
-	// 			</span>
-	// 		</div>
-	// 	)
-	// }
 	return (
 		<>
 			<Head>
@@ -44,14 +20,7 @@ export default function Blog({
 			<Header latest_post_uid={posts[0].uid} />
 			<BlogMainStyle>
 				<h1>Blog</h1>
-				{posts.slice(0, limit).map((post: PostType) => (
-					<PostPreview key={post.id} post={post} />
-				))}
-				{posts.length > limit && (
-					<Button onClick={() => setLimit(limit + 5)}>
-						load more...
-					</Button>
-				)}
+				<PostList initial_limit={5} posts={posts} isPreview />
 			</BlogMainStyle>
 			<Footer />
 		</>
@@ -68,7 +37,6 @@ export const getStaticProps: GetStaticProps = async () => {
 			direction: 'desc',
 		},
 	})
-	// console.log(posts[0].data)
 
 	return {
 		props: {

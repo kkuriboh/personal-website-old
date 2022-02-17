@@ -122,6 +122,9 @@ export const AsideButtonStyle = styled.button`
 `
 export const BlogListStyle = styled.ul`
 	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	h3 {
 		color: ${theme.colors.links};
 		transition: all 0.3s ease-in-out;
@@ -130,5 +133,11 @@ export const BlogListStyle = styled.ul`
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+	li {
+		margin: 1rem 0;
+	}
+	div {
+		margin: 0 auto;
 	}
 `

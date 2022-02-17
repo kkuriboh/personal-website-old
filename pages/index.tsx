@@ -2,6 +2,11 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
+
+import { getPrismicClient } from '../utils/prismic'
+import checkEnv from '../utils/checkEnv'
+import PostList from '../components/postList'
+
 import {
 	AsideButtonStyle,
 	BlogListStyle,
@@ -9,11 +14,6 @@ import {
 	HeaderTopStyle,
 	MainStyle,
 } from '../styles/homeStyles'
-
-import { getPrismicClient } from '../utils/prismic'
-import checkEnv from '../utils/checkEnv'
-import { RichText } from 'prismic-reactjs'
-import { PostType } from '../types/post'
 
 const Home: NextPage = ({
 	posts,
@@ -97,7 +97,10 @@ const Home: NextPage = ({
 							<ul>
 								<li>Java / Unit tests with JUnit</li>
 								<li>.Net Framework / Windows Forms</li>
-								<li>Basics of web desing / development</li>
+								<li>
+									Basics of web desing / development +
+									bootstrap
+								</li>
 								<li>PHP / CodeIgniter 3</li>
 								<li>Computer repair and maintenance</li>
 								<li>
@@ -159,14 +162,7 @@ const Home: NextPage = ({
 				<section>
 					<h2>Blog</h2>
 					<BlogListStyle>
-						{posts.map((post: PostType) => (
-							<li key={post.id}>
-								<Link href={`/blog/${post.uid}`} passHref>
-									<h3>{post.uid}</h3>
-								</Link>
-								<RichText render={post.data.summary} />
-							</li>
-						))}
+						<PostList initial_limit={3} posts={posts} />
 					</BlogListStyle>
 				</section>
 				<footer>
@@ -184,7 +180,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	const client = getPrismicClient()
 	const posts = await client.getAllByType('blog-post', {
-		pageSize: 5,
+		orderings: {
+			field: 'publish-date',
+			direction: 'desc',
+		},
 	})
 	const age =
 		((new Date() as any) - (new Date('2003-05-15') as any)) /
