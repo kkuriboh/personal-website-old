@@ -1,10 +1,5 @@
 import { RichTextBlock } from 'prismic-reactjs'
 
-// type DataType = {
-// 	type: string
-// 	text: string
-// 	spans: []
-// }
 export type ImageType = {
 	dimensions: {
 		width: number

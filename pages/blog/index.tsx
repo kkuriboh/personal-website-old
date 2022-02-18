@@ -8,6 +8,7 @@ import checkEnv from '../../utils/checkEnv'
 import { getPrismicClient } from '../../utils/prismic'
 
 import { BlogMainStyle } from '../../styles/BlogHomeStyle'
+import { sortPosts } from '../../utils/sortPosts'
 
 export default function Blog({
 	posts,
@@ -31,12 +32,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
 	const client = getPrismicClient()
-	const posts = await client.getAllByType('blog-post', {
-		orderings: {
-			field: 'publish-date',
-			direction: 'desc',
-		},
-	})
+	const posts = sortPosts((await client.getAllByType('blog-post', {})) as any)
 
 	return {
 		props: {

@@ -11,12 +11,15 @@ export default function PostSection({ children }: Props) {
 }
 
 const Styles = styled(SectionWShadow)`
+	.block-img {
+		text-indent: 0;
+	}
 	img {
-		margin: 0 auto;
+		margin: 0;
 		max-height: 60vh;
 		outline: 1px solid ${theme.colors.secondary};
 	}
 	* {
-		margin: 1rem 0;
+		max-width: 100%;
 	}
 `

@@ -14,7 +14,7 @@ export const BlogMainStyle = styled.main`
 	}
 
 	@media screen and (max-width: 600px) {
-		width: 90%;
+		width: 95%;
 		h1 {
 			margin: 2rem 0;
 		}

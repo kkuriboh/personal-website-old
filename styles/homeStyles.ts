@@ -53,6 +53,7 @@ export const MainStyle = styled.main`
 
 		@media screen and (max-width: 600px) {
 			width: 90%;
+			padding: 1rem;
 		}
 	}
 	h3 small {
@@ -139,5 +140,14 @@ export const BlogListStyle = styled.ul`
 	}
 	div {
 		margin: 0 auto;
+	}
+	@media screen and (max-width: 600px) {
+		div {
+			display: flex;
+			flex-direction: column;
+			button {
+				margin: 0.5rem 0;
+			}
+		}
 	}
 `

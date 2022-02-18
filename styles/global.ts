@@ -40,6 +40,11 @@ const GlobalStyle = createGlobalStyle`
 	ul {
 		padding: 0 2.85rem;
 	}
+	@media screen and (max-width: 600px) {
+		ul {
+			padding: 0 1.5rem;
+		}
+	}
 
 `
 

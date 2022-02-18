@@ -14,6 +14,7 @@ import {
 	HeaderTopStyle,
 	MainStyle,
 } from '../styles/homeStyles'
+import { sortPosts } from '../utils/sortPosts'
 
 const Home: NextPage = ({
 	posts,
@@ -179,12 +180,8 @@ export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
 	const client = getPrismicClient()
-	const posts = await client.getAllByType('blog-post', {
-		orderings: {
-			field: 'publish-date',
-			direction: 'desc',
-		},
-	})
+	const posts = sortPosts((await client.getAllByType('blog-post', {})) as any)
+
 	const age =
 		((new Date() as any) - (new Date('2003-05-15') as any)) /
 		(1000 * 60 * 60 * 24 * 365)

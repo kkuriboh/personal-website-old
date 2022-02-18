@@ -1,18 +1,29 @@
 import styled from 'styled-components'
 import { SectionWShadow } from './global'
+import theme from './themes'
 
 export const PostMainStyle = styled.main`
 	width: 70%;
 	margin: 2rem auto;
+
+	@media screen and (max-width: 600px) {
+		width: 90%;
+	}
 `
 export const TopStyle = styled(SectionWShadow)`
 	width: 100%;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1rem;
-	p {
-		font-weight: 300;
+	div {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		p {
+			font-weight: 300;
+		}
 	}
-	margin-bottom: 2rem;
+	span {
+		outline: 1px solid ${theme.colors.secondary};
+		margin: 1rem 0 !important;
+	}
 `
