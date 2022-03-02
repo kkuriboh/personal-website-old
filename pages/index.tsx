@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
 import PostList from '../components/postList'
+import theme from '../styles/themes'
 
 import {
 	AsideButtonStyle,
@@ -140,7 +141,7 @@ const Home: NextPage = ({
 								<h3>Christmas pixel art collab website</h3>
 								<p
 									style={{
-										color: '#f5f5f5',
+										color: theme.colors.secondary,
 									}}
 								>
 									Svelte website that I did for a pixel art

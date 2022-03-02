@@ -25,5 +25,6 @@ export const TopStyle = styled(SectionWShadow)`
 	span {
 		outline: 1px solid ${theme.colors.secondary};
 		margin: 1rem 0 !important;
+		max-height: 60vh;
 	}
 `
