@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import theme from '../styles/themes'
 
 export default function Footer() {
 	return (
@@ -14,7 +13,7 @@ const FooterStyle = styled.footer`
 	text-align: center;
 	padding: 1rem;
 	margin-top: 1rem;
-	border-top: 1px solid ${theme.colors.links};
-	background-color: ${theme.colors.primary};
-	color: ${theme.colors.secondary};
+	border-top: 1px solid ${({ theme }) => theme.colors.links};
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: ${({ theme }) => theme.colors.secondary};
 `

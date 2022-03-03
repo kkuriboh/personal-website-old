@@ -1,20 +1,14 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import theme from './themes'
+import { Theme } from '../utils/themeContext'
 
 const GlobalStyle = createGlobalStyle`
-	:root {
-		--background: ${theme.colors.primary};
-		--foreground: ${theme.colors.secondary};
-		--links: ${theme.colors.links};
-	}
-
 	html,
 	body {
 		font-family: 'Titillium Web', sans-serif;
 	}
 
 	body {
-		background-color: var(--background);
+		background-color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
 	}
 
 	* {
@@ -25,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
 
 	a {
 		text-decoration: none;
-		color: var(--links);
+		color: ${({ theme }: { theme: Theme }) => theme.colors.links};
 		margin: 0 0.5rem;
 		transition: all 0.3s ease-in-out;
 	}
@@ -47,19 +41,18 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 `
-
 export default GlobalStyle
 
 export const SectionWShadow = styled.section`
-	color: ${theme.colors.secondary};
-	outline: 1px solid ${theme.colors.secondary};
+	color: ${({ theme }) => theme.colors.secondary};
+	outline: 1px solid ${({ theme }) => theme.colors.secondary};
 	position: relative;
 	margin: 0 auto 2rem auto;
 	padding: 2rem;
 	top: 0.5rem;
 	left: 0.5rem;
 	animation: fakeMoveUp 0.3s 0.6s forwards;
-	background-color: ${theme.colors.primary};
+	background-color: ${({ theme }) => theme.colors.primary};
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -73,6 +66,7 @@ export const SectionWShadow = styled.section`
 		z-index: -1;
 		top: 0;
 		left: 0;
+		background-color: ${({ theme }) => theme.colors.secondary};
 		animation: moveDown 0.3s 0.6s forwards;
 		transform: translate(0, 0);
 	}
@@ -83,7 +77,6 @@ export const SectionWShadow = styled.section`
 		}
 		100% {
 			transform: translate(0.5rem, 0.5rem);
-			background-color: ${theme.colors.secondary};
 		}
 	}
 	@keyframes fakeMoveUp {

@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
 import PostList from '../components/postList'
-import theme from '../styles/themes'
 
 import {
 	AsideButtonStyle,
@@ -16,17 +15,29 @@ import {
 	MainStyle,
 } from '../styles/homeStyles'
 import { sortPosts } from '../utils/sortPosts'
+import { useContext } from 'react'
+import { ThemeContext } from '../utils/themeContext'
+import ThemeButton from '../components/theme-button'
 
 const Home: NextPage = ({
 	posts,
 	age,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+	const { theme } = useContext(ThemeContext)
+
 	return (
 		<>
 			<Head>
 				<title>Augusto Pieper</title>
 			</Head>
 			<MainStyle>
+				<ThemeButton
+					style={{
+						position: 'fixed',
+						top: '2rem',
+						right: '2rem',
+					}}
+				/>
 				<header>
 					<HeaderTopStyle>
 						<div>
@@ -175,8 +186,6 @@ const Home: NextPage = ({
 	)
 }
 
-export default Home
-
 export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
@@ -195,3 +204,5 @@ export const getStaticProps: GetStaticProps = async () => {
 		revalidate: 525600,
 	}
 }
+
+export default Home

@@ -1,10 +1,11 @@
 import { RichText } from 'prismic-reactjs'
 import styled from 'styled-components'
-import theme from '../styles/themes'
-import { PostType } from '../types/post'
 import Image from 'next/image'
+
 import Button from './button'
+import { PostType } from '../types/post'
 import { useRouter } from 'next/router'
+
 import { SectionWShadow } from '../styles/global'
 
 export default function PostPreview(post: { post: PostType }) {
@@ -12,13 +13,14 @@ export default function PostPreview(post: { post: PostType }) {
 	function redirectToPost() {
 		router.push(`/blog/${post.post.uid}`)
 	}
+
 	return (
 		<Container>
 			<Top>
 				<h2 onClick={redirectToPost}>
 					{RichText.asText(post.post.data.title)}
 				</h2>
-				<p>{post.post.data.publish_date}</p>
+				<p>{new Date(post.post.data.publish_date).toDateString()}</p>
 			</Top>
 			<article>
 				<p>{RichText.asText(post.post.data.summary)}</p>
@@ -46,7 +48,7 @@ const Container = styled(SectionWShadow)`
 
 		span {
 			max-height: 40vh;
-			outline: 1px solid ${theme.colors.secondary};
+			outline: 1px solid ${({ theme }) => theme.colors.secondary};
 		}
 	}
 	@media screen and (max-width: 600px) {

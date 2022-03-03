@@ -1,12 +1,11 @@
 import styled from 'styled-components'
-import theme from './themes'
 
 export const MainStyle = styled.main`
 	section,
 	header,
 	footer {
-		color: ${theme.colors.secondary};
-		outline: 1px solid ${theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.secondary};
+		outline: 1px solid ${({ theme }) => theme.colors.secondary};
 		position: relative;
 		width: 70%;
 		margin: 2rem auto;
@@ -15,7 +14,7 @@ export const MainStyle = styled.main`
 		left: 0.5rem;
 		animation: fakeMoveUp 0.3s 0.6s forwards;
 		/* transform: translate(0.5rem, 0.5rem); */
-		background-color: ${theme.colors.primary};
+		background-color: ${({ theme }) => theme.colors.primary};
 
 		::before {
 			content: '';
@@ -27,6 +26,7 @@ export const MainStyle = styled.main`
 			left: 0;
 			animation: moveDown 0.3s 0.6s forwards;
 			transform: translate(0, 0);
+			background-color: ${({ theme }) => theme.colors.secondary};
 		}
 
 		@keyframes moveDown {
@@ -35,7 +35,6 @@ export const MainStyle = styled.main`
 			}
 			100% {
 				transform: translate(0.5rem, 0.5rem);
-				background-color: ${theme.colors.secondary};
 			}
 		}
 		@keyframes fakeMoveUp {
@@ -79,7 +78,7 @@ export const HeaderTopStyle = styled.div`
 
 	img {
 		border-radius: 50%;
-		border: 0.2em solid ${theme.colors.secondary};
+		border: 0.2em solid ${({ theme }) => theme.colors.secondary};
 		width: 14rem;
 		height: 14rem;
 	}
@@ -104,14 +103,14 @@ export const AsideButtonStyle = styled.button`
 	bottom: 2rem;
 	right: 2rem;
 	padding: 0.5rem 2rem;
-	border: 1px solid ${theme.colors.secondary};
-	background-color: ${theme.colors.primary};
-	color: ${theme.colors.secondary};
+	border: 1px solid ${({ theme }) => theme.colors.secondary};
+	background-color: ${({ theme }) => theme.colors.primary};
+	color: ${({ theme }) => theme.colors.secondary};
 	transition: ease-out 0.6s;
 	cursor: pointer;
 	:hover {
-		box-shadow: inset 12rem 0 0 0 ${theme.colors.secondary};
-		color: ${theme.colors.primary};
+		box-shadow: inset 12rem 0 0 0 ${({ theme }) => theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.primary};
 	}
 	@media screen and (max-width: 800px) {
 		bottom: 3rem;
@@ -127,7 +126,7 @@ export const BlogListStyle = styled.ul`
 	flex-direction: column;
 	justify-content: center;
 	h3 {
-		color: ${theme.colors.links};
+		color: ${({ theme }) => theme.colors.links};
 		transition: all 0.3s ease-in-out;
 		cursor: pointer;
 		font-size: x-large;

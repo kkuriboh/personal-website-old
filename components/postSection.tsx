@@ -1,12 +1,13 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { SectionWShadow } from '../styles/global'
-import theme from '../styles/themes'
 
-type Props = {
+import { SectionWShadow } from '../styles/global'
+
+type props = {
 	children: React.ReactNode
 }
 
-export default function PostSection({ children }: Props) {
+export default function PostSection({ children }: props) {
 	return <Styles>{children}</Styles>
 }
 
@@ -17,7 +18,7 @@ const Styles = styled(SectionWShadow)`
 	img {
 		margin: 0;
 		max-height: 60vh;
-		outline: 1px solid ${theme.colors.secondary};
+		outline: 1px solid ${({ theme }) => theme.colors.secondary};
 	}
 	* {
 		max-width: 100%;

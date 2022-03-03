@@ -1,14 +1,14 @@
 import Link from 'next/link'
 
 import styled from 'styled-components'
-import theme from '../styles/themes'
 import { isServer } from '../utils/isServer'
+import ThemeButton from './theme-button'
 
-type Props = {
+type props = {
 	latest_post_uid: string
 }
 
-export default function Header({ latest_post_uid }: Props) {
+export default function Header({ latest_post_uid }: props) {
 	const isPhone = !isServer() && window.innerWidth < 600
 
 	function menuClick(element: HTMLButtonElement) {
@@ -42,6 +42,7 @@ export default function Header({ latest_post_uid }: Props) {
 					<Link href={`/blog/${latest_post_uid}`} passHref>
 						<li data-text="LATEST-POST">LATEST-POST</li>
 					</Link>
+					<ThemeButton />
 				</ul>
 				{isPhone && (
 					//stolen from here
@@ -72,19 +73,19 @@ const HeaderStyle = styled.header`
 	position: -webkit-sticky;
 	top: 0;
 	z-index: 1;
-	background: ${theme.colors.primary};
+	background: ${({ theme }) => theme.colors.primary};
 `
 
 const NavStyle = styled.nav`
 	z-index: 10;
-	color: ${theme.colors.secondary};
+	color: ${({ theme }) => theme.colors.secondary};
 	width: 100%;
 	/* justify-content: space-evenly; */
-	box-shadow: 1px 1px 1px 1px ${theme.colors.links};
+	box-shadow: 1px 1px 1px 1px ${({ theme }) => theme.colors.links};
 	padding: 1rem;
 	span {
 		cursor: pointer;
-		color: ${theme.colors.secondary};
+		color: ${({ theme }) => theme.colors.secondary};
 		font-size: 1.5rem;
 	}
 	ul {
@@ -101,9 +102,9 @@ const NavStyle = styled.nav`
 		transition: 0.3s ease-in-out;
 		padding: 0.5rem 1rem;
 		height: min-content;
-		background-color: ${theme.colors.primary};
+		background-color: ${({ theme }) => theme.colors.primary};
 		:hover {
-			outline: 1px solid ${theme.colors.secondary};
+			outline: 1px solid ${({ theme }) => theme.colors.secondary};
 		}
 		:hover::before {
 			content: '';
@@ -113,10 +114,10 @@ const NavStyle = styled.nav`
 			z-index: -1;
 			top: 0;
 			left: 0;
-			background-color: ${theme.colors.secondary};
+			background-color: ${({ theme }) => theme.colors.secondary};
 			transform: translate(0, 0);
 			animation: btMoveDown 0.3s 0.1s forwards;
-			background-color: ${theme.colors.secondary};
+			background-color: ${({ theme }) => theme.colors.secondary};
 		}
 		::after {
 			content: attr(data-text);
@@ -153,7 +154,7 @@ const NavStyle = styled.nav`
 		}
 		100% {
 			transform: translate(0.2rem, 0.2rem);
-			background-color: ${theme.colors.secondary};
+			background-color: ${({ theme }) => theme.colors.secondary};
 		}
 	}
 	@keyframes font {
@@ -174,7 +175,7 @@ const NavStyle = styled.nav`
 	}
 	path {
 		fill: none;
-		stroke: white;
+		stroke: ${({ theme }) => theme.colors.secondary};
 		stroke-width: 2;
 		transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
 			stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -217,7 +218,7 @@ const NavStyle = styled.nav`
 			width: 100vw;
 			top: 5.75rem;
 			left: 0;
-			background-color: ${theme.colors.primary};
+			background-color: ${({ theme }) => theme.colors.primary};
 			z-index: -1;
 			animation: slideDown 0.6s 0.1s forwards;
 			transform: translateY(-100%);

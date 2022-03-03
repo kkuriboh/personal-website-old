@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import Button from '../components/button'
 import Footer from '../components/footer'
 import Header from '../components/header'
-import theme from '../styles/themes'
 import checkEnv from '../utils/checkEnv'
 import { getPrismicClient } from '../utils/prismic'
 
@@ -31,24 +30,6 @@ export default function NotFound({
 	)
 }
 
-const Styles = styled.main`
-	margin: 4rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: ${theme.colors.secondary};
-	h1,
-	h2,
-	p {
-		font-weight: 300;
-	}
-	button,
-	p {
-		margin-top: 4rem;
-	}
-`
-
 export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 	const client = getPrismicClient()
@@ -66,3 +47,21 @@ export const getStaticProps: GetStaticProps = async () => {
 		},
 	}
 }
+
+const Styles = styled.main`
+	margin: 4rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: ${({ theme }) => theme.colors.secondary};
+	h1,
+	h2,
+	p {
+		font-weight: 300;
+	}
+	button,
+	p {
+		margin-top: 4rem;
+	}
+`

@@ -6,14 +6,13 @@ import { PostType } from '../types/post'
 import Button from './button'
 import PostPreview from './postPreview'
 
-type Props = {
-	// children: React.ReactNode
+type props = {
 	initial_limit: number
 	isPreview?: boolean
 	posts: PostType[]
 }
 
-export default function PostList(props: Props) {
+export default function PostList(props: props) {
 	const [limit, setLimit] = useState<number>(props.initial_limit)
 
 	return (

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import theme from './themes'
 
 export const BlogMainStyle = styled.main`
 	width: 60%;
@@ -8,7 +7,7 @@ export const BlogMainStyle = styled.main`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: ${theme.colors.secondary};
+	color: ${({ theme }) => theme.colors.secondary};
 	h1 {
 		margin: 3rem 0;
 	}

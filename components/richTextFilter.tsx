@@ -4,11 +4,11 @@ import ReactMarkdown from 'react-markdown'
 import { BodySliceType } from '../types/post'
 import PostSection from './postSection'
 
-type Props = {
+type props = {
 	body: BodySliceType
 }
 
-export default function RichTextFilter({ body }: Props) {
+export default function RichTextFilter({ body }: props) {
 	return (
 		<>
 			{body.items.map((item, index) => {

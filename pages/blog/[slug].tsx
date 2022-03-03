@@ -26,7 +26,11 @@ export default function Post({
 				<TopStyle>
 					<div>
 						<h1>{RichText.asText(content.data.title)}</h1>
-						<p>{content.data.publish_date}</p>
+						<p>
+							{new Date(content.data.publish_date)
+								.toUTCString()
+								.slice(0, -4)}
+						</p>
 					</div>
 					<Image
 						src={content.data.banner.url}
