@@ -1,14 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
 import PostList from '../components/postList'
 
 import {
-	AsideButtonStyle,
 	BlogListStyle,
 	HeaderBottomStyle,
 	HeaderTopStyle,
@@ -17,7 +15,7 @@ import {
 import { sortPosts } from '../utils/sortPosts'
 import { useContext } from 'react'
 import { ThemeContext } from '../utils/themeContext'
-import ThemeButton from '../components/theme-button'
+import Menu from '../components/HomeMenu'
 
 const Home: NextPage = ({
 	posts,
@@ -31,13 +29,7 @@ const Home: NextPage = ({
 				<title>Augusto Pieper</title>
 			</Head>
 			<MainStyle>
-				<ThemeButton
-					style={{
-						position: 'fixed',
-						top: '2rem',
-						right: '2rem',
-					}}
-				/>
+				<Menu />
 				<header>
 					<HeaderTopStyle>
 						<div>
@@ -81,9 +73,6 @@ const Home: NextPage = ({
 						</a>
 					</HeaderBottomStyle>
 				</header>
-				<Link href={'/blog'} passHref>
-					<AsideButtonStyle>BLOG</AsideButtonStyle>
-				</Link>
 				<section>
 					<h2>Skills</h2>
 					<ul>

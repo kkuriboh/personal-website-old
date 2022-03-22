@@ -80,7 +80,6 @@ const NavStyle = styled.nav`
 	z-index: 10;
 	color: ${({ theme }) => theme.colors.secondary};
 	width: 100%;
-	/* justify-content: space-evenly; */
 	box-shadow: 1px 1px 1px 1px ${({ theme }) => theme.colors.links};
 	padding: 1rem;
 	span {
@@ -114,7 +113,6 @@ const NavStyle = styled.nav`
 			z-index: -1;
 			top: 0;
 			left: 0;
-			background-color: ${({ theme }) => theme.colors.secondary};
 			transform: translate(0, 0);
 			animation: btMoveDown 0.3s 0.1s forwards;
 			background-color: ${({ theme }) => theme.colors.secondary};
@@ -154,7 +152,6 @@ const NavStyle = styled.nav`
 		}
 		100% {
 			transform: translate(0.2rem, 0.2rem);
-			background-color: ${({ theme }) => theme.colors.secondary};
 		}
 	}
 	@keyframes font {

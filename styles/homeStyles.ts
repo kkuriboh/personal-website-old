@@ -13,7 +13,6 @@ export const MainStyle = styled.main`
 		top: 0.5rem;
 		left: 0.5rem;
 		animation: fakeMoveUp 0.3s 0.6s forwards;
-		/* transform: translate(0.5rem, 0.5rem); */
 		background-color: ${({ theme }) => theme.colors.primary};
 
 		::before {
@@ -49,10 +48,17 @@ export const MainStyle = styled.main`
 				/* transform: translate(0, 0); */
 			}
 		}
+	}
 
-		@media screen and (max-width: 600px) {
+	@media screen and (max-width: 600px) {
+		section,
+		header,
+		footer {
 			width: 90%;
 			padding: 1rem;
+		}
+		header {
+			margin: 0.2rem auto;
 		}
 	}
 	h3 small {
@@ -98,28 +104,6 @@ export const HeaderBottomStyle = styled.div`
 	text-align: center;
 `
 
-export const AsideButtonStyle = styled.button`
-	position: fixed;
-	bottom: 2rem;
-	right: 2rem;
-	padding: 0.5rem 2rem;
-	border: 1px solid ${({ theme }) => theme.colors.secondary};
-	background-color: ${({ theme }) => theme.colors.primary};
-	color: ${({ theme }) => theme.colors.secondary};
-	transition: ease-out 0.6s;
-	cursor: pointer;
-	:hover {
-		box-shadow: inset 12rem 0 0 0 ${({ theme }) => theme.colors.secondary};
-		color: ${({ theme }) => theme.colors.primary};
-	}
-	@media screen and (max-width: 800px) {
-		bottom: 3rem;
-		right: -1.5rem;
-		z-index: 3;
-		height: min-content;
-		transform: rotate(-90deg);
-	}
-`
 export const BlogListStyle = styled.ul`
 	list-style: none;
 	display: flex;

@@ -17,7 +17,7 @@ export default function PostList(props: props) {
 
 	return (
 		<>
-			{props.posts.slice(0, limit).map((post: PostType) => {
+			{props.posts.slice(0, limit).map((post) => {
 				if (props.isPreview)
 					return <PostPreview key={post.id} post={post} />
 

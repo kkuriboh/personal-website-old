@@ -8,27 +8,27 @@ import { useRouter } from 'next/router'
 
 import { SectionWShadow } from '../styles/global'
 
-export default function PostPreview(post: { post: PostType }) {
+export default function PostPreview({ post }: { post: PostType }) {
 	const router = useRouter()
 	function redirectToPost() {
-		router.push(`/blog/${post.post.uid}`)
+		router.push(`/blog/${post.uid}`)
 	}
 
 	return (
 		<Container>
 			<Top>
 				<h2 onClick={redirectToPost}>
-					{RichText.asText(post.post.data.title)}
+					{RichText.asText(post.data.title)}
 				</h2>
-				<p>{new Date(post.post.data.publish_date).toDateString()}</p>
+				<p>{new Date(post.data.publish_date).toDateString()}</p>
 			</Top>
 			<article>
-				<p>{RichText.asText(post.post.data.summary)}</p>
+				<p>{RichText.asText(post.data.summary)}</p>
 				<Image
-					src={post.post.data.banner.url}
-					width={post.post.data.banner.dimensions.width}
-					height={post.post.data.banner.dimensions.height}
-					alt={`${post.post.id}-banner`}
+					src={post.data.banner.url}
+					width={post.data.banner.dimensions.width}
+					height={post.data.banner.dimensions.height}
+					alt={`${post.id}-banner`}
 				/>
 			</article>
 			<Button onClick={redirectToPost}>read more</Button>

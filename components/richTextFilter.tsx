@@ -1,4 +1,4 @@
-import { RichText, Elements } from 'prismic-reactjs'
+import { RichText } from 'prismic-reactjs'
 import ReactMarkdown from 'react-markdown'
 
 import { BodySliceType } from '../types/post'

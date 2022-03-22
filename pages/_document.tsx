@@ -10,6 +10,11 @@ export default function Document() {
 					href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400&display=swap"
 					rel="stylesheet"
 				/>
+				<link
+					rel="shortcut icon"
+					href="/favicon.png"
+					type="image/x-icon"
+				/>
 			</Head>
 			<body>
 				<Main />

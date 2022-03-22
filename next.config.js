@@ -3,6 +3,8 @@ const nextConfig = {
 	reactStrictMode: true,
 	images: {
 		domains: ['images.prismic.io'],
+        loader: 'akamai',
+        path: ''
 	},
 	compiler: {
 		styledComponents: true,

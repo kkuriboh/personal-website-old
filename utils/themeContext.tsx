@@ -39,7 +39,7 @@ export default function ThemeProvider({
 			setTheme({
 				colors: {
 					primary: '#f5f5f5',
-					secondary: '#010101',
+					secondary: '#0d0d0d',
 					links: '#666',
 				},
 			})
