@@ -2,7 +2,7 @@ import { RichText } from 'prismic-reactjs'
 import ReactMarkdown from 'react-markdown'
 
 import { BodySliceType } from '../types/post'
-import PostSection from './postSection'
+import PostSection from './post_section'
 
 type props = {
 	body: BodySliceType

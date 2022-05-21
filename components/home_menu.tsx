@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import ThemeButton from './theme-button'
+import ThemeButton from './theme_button'
 
 export default function Menu() {
 	const [btState, setBtState] = useState<'opened' | 'closed'>('opened')

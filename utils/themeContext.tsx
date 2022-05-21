@@ -2,20 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import { isServer } from './isServer'
 import { ThemeProvider as SCThemeProvider } from 'styled-components'
 
-export type Theme = {
-	colors: {
-		primary: string
-		secondary: string
-		links: string
-	}
-}
-
-type ContextType = {
-	theme: Theme
-	setTheme: (theme: Theme) => void
-}
-
-const defaultTheme = {
+export const default_theme = {
 	colors: {
 		primary: '#010101',
 		secondary: '#f5f5f5',
@@ -23,8 +10,13 @@ const defaultTheme = {
 	},
 }
 
+type ContextType = {
+	theme: typeof default_theme
+	setTheme: (theme: typeof default_theme) => void
+}
+
 export const ThemeContext = createContext<ContextType>({
-	theme: defaultTheme,
+	theme: default_theme,
 } as ContextType)
 
 export default function ThemeProvider({
@@ -32,7 +24,7 @@ export default function ThemeProvider({
 }: {
 	children: React.ReactNode
 }) {
-	const [theme, setTheme] = useState<Theme>(defaultTheme)
+	const [theme, setTheme] = useState(default_theme)
 	useEffect(() => {
 		if (isServer()) return
 		if (window.matchMedia('(prefers-color-scheme: light)').matches) {

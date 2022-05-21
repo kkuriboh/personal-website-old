@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import styled from 'styled-components'
 import { isServer } from '../utils/isServer'
-import ThemeButton from './theme-button'
+import ThemeButton from './theme_button'
 
 type props = {
 	latest_post_uid: string
@@ -33,10 +33,10 @@ export default function Header({ latest_post_uid }: props) {
 							<span>Augusto Pieper</span>
 						</Link>
 					)}
-					<Link href={'/'} passHref>
+					<Link href="/" passHref>
 						<li data-text="HOME">HOME</li>
 					</Link>
-					<Link href={'/blog'} passHref>
+					<Link href="/blog" passHref>
 						<li data-text="BLOG">BLOG</li>
 					</Link>
 					<Link href={`/blog/${latest_post_uid}`} passHref>

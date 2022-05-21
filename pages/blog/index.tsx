@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import Footer from '../../components/footer'
 import Header from '../../components/header'
-import PostList from '../../components/postList'
+import PostList from '../../components/post_list'
 import checkEnv from '../../utils/checkEnv'
 import { getPrismicClient } from '../../utils/prismic'
 
@@ -32,6 +32,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
 	const client = getPrismicClient()
+
 	const posts = sortPosts((await client.getAllByType('blog-post', {})) as any)
 
 	return {

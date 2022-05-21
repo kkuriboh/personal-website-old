@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import { Theme } from '../utils/themeContext'
 
 const GlobalStyle = createGlobalStyle`
 	html,
@@ -8,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
+		background-color: ${({ theme }) => theme.colors.primary};
 	}
 
 	* {
@@ -19,8 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 	a {
 		text-decoration: none;
-		color: ${({ theme }: { theme: Theme }) => theme.colors.links};
-		margin: 0 0.5rem;
+		color: ${({ theme }) => theme.colors.links};
 		transition: all 0.3s ease-in-out;
 	}
 
@@ -29,11 +27,13 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	p {
-		text-indent: 1rem;
+		text-indent: 2ch;
 	}
+
 	ul {
 		padding: 0 2.85rem;
 	}
+
 	@media screen and (max-width: 600px) {
 		ul {
 			padding: 0 1.5rem;

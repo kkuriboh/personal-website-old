@@ -5,7 +5,7 @@ import { RichText } from 'prismic-reactjs'
 
 import Footer from '../../components/footer'
 import Header from '../../components/header'
-import RichTextFilter from '../../components/richTextFilter'
+import RichTextFilter from '../../components/rich_text_filter'
 import checkEnv from '../../utils/checkEnv'
 import { getPrismicClient } from '../../utils/prismic'
 
@@ -28,8 +28,8 @@ export default function Post({
 						<h1>{RichText.asText(content.data.title)}</h1>
 						<time dateTime={content.data.publish_date}>
 							{new Date(content.data.publish_date)
-                                .toUTCString()
-                                .slice(0, -4)}
+								.toUTCString()
+								.slice(0, -4)}
 						</time>
 					</div>
 					<Image

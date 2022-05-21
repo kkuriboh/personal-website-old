@@ -61,11 +61,17 @@ export const MainStyle = styled.main`
 			margin: 0.2rem auto;
 		}
 	}
+	header a {
+		margin: 0 0.5rem;
+	}
 	h3 small {
 		font-weight: normal;
 	}
 	li ul {
 		list-style-type: square;
+	}
+	li h4 {
+		margin-bottom: 1rem;
 	}
 	footer {
 		text-align: center;

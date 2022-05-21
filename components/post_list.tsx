@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { PostType } from '../types/post'
 import Button from './button'
-import PostPreview from './postPreview'
+import PostPreview from './post_preview'
 
 type props = {
 	initial_limit: number

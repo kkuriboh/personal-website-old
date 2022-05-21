@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
-import PostList from '../components/postList'
+import PostList from '../components/post_list'
 
 import {
 	BlogListStyle,
@@ -15,13 +15,42 @@ import {
 import { sortPosts } from '../utils/sortPosts'
 import { useContext } from 'react'
 import { ThemeContext } from '../utils/themeContext'
-import Menu from '../components/HomeMenu'
+import Menu from '../components/home_menu'
+import { HomeBodyType, PostType } from '../types/post'
+import { Link, RichText, RichTextBlock } from 'prismic-reactjs'
 
-const Home: NextPage = ({
-	posts,
-	age,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+type StaticProps = {
+	posts: PostType[]
+	home: HomeBodyType
+	age: string
+}
+
+type ExperienceItem = {
+	link: Link
+	title: RichTextBlock[]
+	subtitle: RichTextBlock[]
+	content: RichTextBlock[]
+}
+
+const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 	const { theme } = useContext(ThemeContext)
+
+	function render_experience_item(item: ExperienceItem, index: number) {
+		return (
+			<li key={index}>
+				<h3>
+					{item.subtitle[0].text !== '' ? (
+						<>
+							{RichText.asText(item.title)}
+							<small>{' ' + item.subtitle[0].text}</small>
+						</>
+					) : (
+						RichText.asText(item.title)
+					)}
+				</h3>
+			</li>
+		)
+	}
 
 	return (
 		<>
@@ -34,131 +63,93 @@ const Home: NextPage = ({
 					<HeaderTopStyle>
 						<div>
 							<div>
-								<h1>Augusto, </h1>
-								<h2>Fullstack web developer</h2>
+								<h1>
+									{RichText.asText(
+										home[0].primary.first_name
+									)}
+								</h1>
+								<h2>{RichText.asText(home[0].primary.role)}</h2>
 							</div>
 							<p>
-								Besides from my passion to programming, I&apos;m
-								{age} years old, knife collector, linux
-								enthusiast, privacy/FOSS activist, skateboarder
-								and nu metal fan. Lately I&apos;ve been studying
-								a lot of systems programming with Rust and C++
-								to have a better understanding of how everything
-								works and I&apos;m loving it.
+								{RichText.asText(
+									home[0].primary.resume
+								).replace('${age}', age)}
 							</p>
 						</div>
-						<img src="/profile-pic.jpg" alt="profile picture" />
+						<img
+							src={home[0].primary.profile_picture.url}
+							alt={home[0].primary.profile_picture.alt}
+						/>
 					</HeaderTopStyle>
 					<HeaderBottomStyle>
-						<a
-							target="_blank"
-							href="https://github.com/kuribOwOh"
-							rel="noreferrer"
-						>
-							Github
-						</a>
-						<a
-							target="_blank"
-							href="https://www.linkedin.com/in/augusto-pieper-5812b820a/"
-							rel="noreferrer"
-						>
-							LinkedIn
-						</a>
-						<a
-							target="_blank"
-							href="mailto:augustooopieper@gmail.com"
-							rel="noreferrer"
-						>
-							Email
-						</a>
+						{home[0].items.map((item, index) => (
+							<a
+								key={index}
+								target="_blank"
+								rel="noreferrer"
+								href={item.link.url}
+							>
+								{RichText.asText(item.labelname)}
+							</a>
+						))}
 					</HeaderBottomStyle>
 				</header>
 				<section>
 					<h2>Skills</h2>
-					<ul>
-						<li>Web with NextJS and Svelte</li>
-						<li>Backend with GraphQL and Express</li>
-						<li>Basics of mobile with Flutter and React Native</li>
-						<li>Advanced Linux</li>
-						<li>Scripting with Lua and Shell</li>
-						<li>Familiar with Figma, Adobe PS, Krita and Office</li>
-						<li>Git and Github</li>
-						<li>Native Portuguese / intermediary English</li>
-					</ul>
+					<RichText render={home[1].items[0].content} />
 				</section>
 				<section>
 					<h2>Education</h2>
 					<ul>
-						<li>
-							<h3>
-								TI Technical Course
-								<small> - 2020 / present</small>
-							</h3>
-							<h4>What I&apos;ve learned</h4>
-							<br />
-							<ul>
-								<li>Java / Unit tests with JUnit</li>
-								<li>.Net Framework / Windows Forms</li>
-								<li>
-									Basics of web desing / development +
-									bootstrap
+						{home[2].items.map((item, index) => (
+							<>
+								<li key={index}>
+									{item.subtitle[0].text !== '' ? (
+										<h3>
+											{RichText.asText(item.title)}
+											<small>
+												{' - ' + item.subtitle[0].text}
+											</small>
+										</h3>
+									) : (
+										<RichText render={item.title} />
+									)}
+									{item.content.map((paragraph, index) =>
+										paragraph.type === 'paragraph' ? (
+											<p key={index}>{paragraph.text}</p>
+										) : (
+											index === 0 && (
+												<RichText
+													render={item.content}
+												/>
+											)
+										)
+									)}
 								</li>
-								<li>PHP / CodeIgniter 3</li>
-								<li>Computer repair and maintenance</li>
-								<li>
-									Network administration with linux and
-									windows
-								</li>
-								<li>SQL</li>
-							</ul>
-						</li>
-						<br />
-						<li>
-							<h3>Self-taught</h3>
-							<p>
-								I started learning by myself along side my
-								course because I knew that they were teaching me
-								something a bit outdated and I wanted to learn
-								something new to be prepared for the industry.
-								<br />I started with simple Javascript and
-								ReactJS, then started learning backend with
-								NodeJS and Typescript. Now I feel confident to
-								create fullstack web apps using these
-								technologies.
-							</p>
-						</li>
+								{index !== home[2].items.length - 1 && <br />}
+							</>
+						))}
 					</ul>
 				</section>
 				<section>
 					<h2>Experience</h2>
 					<ul>
-						<a
-							target="_blank"
-							href="https://dibiaru-xmas-collab.vercel.app/"
-							rel="noreferrer"
-						>
-							<li>
-								<h3>Christmas pixel art collab website</h3>
-								<p
-									style={{
-										color: theme.colors.secondary,
-									}}
-								>
-									Svelte website that I did for a pixel art
-									event.
-								</p>
-							</li>
-						</a>
-						<li>
-							<h3>
-								Bartender <small>oct.2021 - present</small>
-							</h3>
-							<p>
-								Not something related to software, but gave me a
-								lot of soft skills. Because of this, now I can
-								work with teams whithout any problems.
-							</p>
-						</li>
+						{home[3].items.map((item, index) => (
+							<>
+								{item.link.url !== undefined ? (
+									<a
+										href={item.link.url}
+										target="_blank"
+										rel="noreferrer"
+									>
+										{render_experience_item(item, index)}
+									</a>
+								) : (
+									render_experience_item(item, index)
+								)}
+								<RichText render={item.content} />
+							</>
+						))}
 					</ul>
 				</section>
 				<section>
@@ -179,6 +170,9 @@ export const getStaticProps: GetStaticProps = async () => {
 	if (!checkEnv()) return { props: {} }
 
 	const client = getPrismicClient()
+
+	const home_page = await client.getSingle('home')
+
 	const posts = sortPosts((await client.getAllByType('blog-post', {})) as any)
 
 	const age =
@@ -187,7 +181,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	return {
 		props: {
-			posts,
+			posts: posts as PostType[],
+			home: home_page.data.body as HomeBodyType,
 			age: ' ' + age.toString().substring(0, 2),
 		},
 		revalidate: 525600,
