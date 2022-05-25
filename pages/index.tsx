@@ -13,8 +13,6 @@ import {
 	MainStyle,
 } from '../styles/homeStyles'
 import { sortPosts } from '../utils/sortPosts'
-import { useContext } from 'react'
-import { ThemeContext } from '../utils/themeContext'
 import Menu from '../components/home_menu'
 import { HomeBodyType, PostType } from '../types/post'
 import { Link, RichText, RichTextBlock } from 'prismic-reactjs'
@@ -33,8 +31,6 @@ type ExperienceItem = {
 }
 
 const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
-	const { theme } = useContext(ThemeContext)
-
 	function render_experience_item(item: ExperienceItem, index: number) {
 		return (
 			<li key={index}>
@@ -84,7 +80,7 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 					<HeaderBottomStyle>
 						{home[0].items.map((item, index) => (
 							<a
-								key={index}
+								key={index + 10}
 								target="_blank"
 								rel="noreferrer"
 								href={item.link.url}
@@ -103,7 +99,7 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 					<ul>
 						{home[2].items.map((item, index) => (
 							<>
-								<li key={index}>
+								<li key={index + 20}>
 									{item.subtitle[0].text !== '' ? (
 										<h3>
 											{RichText.asText(item.title)}
@@ -116,7 +112,9 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 									)}
 									{item.content.map((paragraph, index) =>
 										paragraph.type === 'paragraph' ? (
-											<p key={index}>{paragraph.text}</p>
+											<p key={index + 30}>
+												{paragraph.text}
+											</p>
 										) : (
 											index === 0 && (
 												<RichText
@@ -125,8 +123,10 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 											)
 										)
 									)}
+									{index !== home[2].items.length - 1 && (
+										<br />
+									)}
 								</li>
-								{index !== home[2].items.length - 1 && <br />}
 							</>
 						))}
 					</ul>
@@ -159,7 +159,16 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 					</BlogListStyle>
 				</section>
 				<footer>
-					&copy;{new Date().getFullYear()} - Augusto do Monte Pieper
+					&copy;Augusto do Monte Pieper - All the source code is under
+					the{' '}
+					<a
+						target="_blank"
+						rel="noreferrer"
+						href="https://mit-license.org/"
+					>
+						MIT
+					</a>{' '}
+					license.
 				</footer>
 			</MainStyle>
 		</>
@@ -172,7 +181,6 @@ export const getStaticProps: GetStaticProps = async () => {
 	const client = getPrismicClient()
 
 	const home_page = await client.getSingle('home')
-
 	const posts = sortPosts((await client.getAllByType('blog-post', {})) as any)
 
 	const age =
