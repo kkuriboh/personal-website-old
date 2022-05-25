@@ -73,6 +73,9 @@ export const MainStyle = styled.main`
 	li h4 {
 		margin-bottom: 1rem;
 	}
+	li a {
+		display: block;
+	}
 	footer {
 		text-align: center;
 	}

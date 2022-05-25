@@ -31,20 +31,18 @@ type ExperienceItem = {
 }
 
 const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
-	function render_experience_item(item: ExperienceItem, index: number) {
+	function render_experience_item(item: ExperienceItem) {
 		return (
-			<li key={index}>
-				<h3>
-					{item.subtitle[0].text !== '' ? (
-						<>
-							{RichText.asText(item.title)}
-							<small>{' ' + item.subtitle[0].text}</small>
-						</>
-					) : (
-						RichText.asText(item.title)
-					)}
-				</h3>
-			</li>
+			<h3>
+				{item.subtitle[0].text !== '' ? (
+					<>
+						{RichText.asText(item.title)}
+						<small>{' ' + item.subtitle[0].text}</small>
+					</>
+				) : (
+					RichText.asText(item.title)
+				)}
+			</h3>
 		)
 	}
 
@@ -98,36 +96,33 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 					<h2>Education</h2>
 					<ul>
 						{home[2].items.map((item, index) => (
-							<>
-								<li key={index + 20}>
-									{item.subtitle[0].text !== '' ? (
-										<h3>
-											{RichText.asText(item.title)}
-											<small>
-												{' - ' + item.subtitle[0].text}
-											</small>
-										</h3>
+							<li key={index + 20}>
+								{item.subtitle[0].text !== '' ? (
+									<h3>
+										{RichText.asText(item.title)}
+										<small>
+											{' - ' + item.subtitle[0].text}
+										</small>
+									</h3>
+								) : (
+									<RichText render={item.title} />
+								)}
+								{item.content.map((paragraph, p_index) =>
+									paragraph.type === 'paragraph' ? (
+										<p key={p_index + 30}>
+											{paragraph.text}
+										</p>
 									) : (
-										<RichText render={item.title} />
-									)}
-									{item.content.map((paragraph, index) =>
-										paragraph.type === 'paragraph' ? (
-											<p key={index + 30}>
-												{paragraph.text}
-											</p>
-										) : (
-											index === 0 && (
-												<RichText
-													render={item.content}
-												/>
-											)
+										p_index === 0 && (
+											<RichText
+												key={p_index}
+												render={item.content}
+											/>
 										)
-									)}
-									{index !== home[2].items.length - 1 && (
-										<br />
-									)}
-								</li>
-							</>
+									)
+								)}
+								{index !== home[2].items.length - 1 && <br />}
+							</li>
 						))}
 					</ul>
 				</section>
@@ -135,20 +130,20 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 					<h2>Experience</h2>
 					<ul>
 						{home[3].items.map((item, index) => (
-							<>
+							<li key={index}>
 								{item.link.url !== undefined ? (
 									<a
 										href={item.link.url}
 										target="_blank"
 										rel="noreferrer"
 									>
-										{render_experience_item(item, index)}
+										{render_experience_item(item)}
 									</a>
 								) : (
-									render_experience_item(item, index)
+									render_experience_item(item)
 								)}
 								<RichText render={item.content} />
-							</>
+							</li>
 						))}
 					</ul>
 				</section>
