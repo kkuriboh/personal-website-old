@@ -91,11 +91,13 @@ export const HeaderTopStyle = styled.div`
 		justify-content: space-around;
 	}
 
-	img {
-		border-radius: 50%;
+	#header_image {
+		position: relative;
 		border: 0.2em solid ${({ theme }) => theme.colors.secondary};
-		width: 14rem;
-		height: 14rem;
+		border-radius: 50%;
+		span > img {
+			border-radius: 50%;
+		}
 	}
 
 	@media screen and (max-width: 600px) {

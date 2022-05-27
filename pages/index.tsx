@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
@@ -70,10 +70,9 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 								).replace('${age}', age)}
 							</p>
 						</div>
-						<img
-							src={home[0].primary.profile_picture.url}
-							alt={home[0].primary.profile_picture.alt}
-						/>
+						<div id="header_image">
+							<Image src={home[0].primary.profile_picture.url} alt={home[0].primary.profile_picture.url} width={home[0].primary.profile_picture.dimensions.width} height={home[0].primary.profile_picture.dimensions.height} objectFit="contain" layout="fixed" />
+						</div>
 					</HeaderTopStyle>
 					<HeaderBottomStyle>
 						{home[0].items.map((item, index) => (
