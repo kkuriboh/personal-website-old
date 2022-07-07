@@ -71,7 +71,20 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 							</p>
 						</div>
 						<div id="header_image">
-							<Image src={home[0].primary.profile_picture.url} alt={home[0].primary.profile_picture.url} width={home[0].primary.profile_picture.dimensions.width} height={home[0].primary.profile_picture.dimensions.height} objectFit="contain" layout="fixed" />
+							<Image
+								src={home[0].primary.profile_picture.url}
+								alt={home[0].primary.profile_picture.url}
+								width={
+									home[0].primary.profile_picture.dimensions
+										.width
+								}
+								height={
+									home[0].primary.profile_picture.dimensions
+										.height
+								}
+								objectFit="contain"
+								layout="fixed"
+							/>
 						</div>
 					</HeaderTopStyle>
 					<HeaderBottomStyle>

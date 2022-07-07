@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { RichText } from 'prismic-reactjs'
 import hljs from 'highlight.js'
-import 'highlight.js/styles/xt256.css'
+import 'highlight.js/styles/tokyo-night-light.css'
 
 import Footer from '../../components/footer'
 import Header from '../../components/header'
@@ -14,7 +14,7 @@ import { getPrismicClient } from '../../utils/prismic'
 import { PostMainStyle, TopStyle } from '../../styles/postStyle'
 import { sortPosts } from '../../utils/sortPosts'
 import { BodySliceType } from '../../types/post'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Post({
 	content,

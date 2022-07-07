@@ -31,7 +31,7 @@ export default function PostList(props: props) {
 				)
 			})}
 			<div>
-				{props.posts.length >= limit && (
+				{props.posts.length > limit && (
 					<Button onClick={() => setLimit(limit + 5)}>
 						load more...
 					</Button>
