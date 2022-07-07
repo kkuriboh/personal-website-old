@@ -20,10 +20,9 @@ const Styles = styled(SectionWShadow)`
 		margin: 0 auto;
 		overflow-x: scroll;
 		outline: 1px solid ${({ theme }) => theme.colors.secondary};
-		color: #0d0d0d;
 	}
 	code {
-		color: unset;
+		color: #4087e8;
 		margin: 0;
 	}
 	.block-img {
