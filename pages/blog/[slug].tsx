@@ -2,6 +2,8 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { RichText } from 'prismic-reactjs'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/xt256.css'
 
 import Footer from '../../components/footer'
 import Header from '../../components/header'
@@ -11,18 +13,27 @@ import { getPrismicClient } from '../../utils/prismic'
 
 import { PostMainStyle, TopStyle } from '../../styles/postStyle'
 import { sortPosts } from '../../utils/sortPosts'
+import { BodySliceType } from '../../types/post'
+import { useEffect } from 'react'
 
 export default function Post({
 	content,
 	latest_post_uid,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+	useEffect(() => {
+		hljs.configure({
+			ignoreUnescapedHTML: true,
+		})
+		hljs.highlightAll()
+	}, [])
+
 	return (
 		<>
 			<Head>
 				<title>{RichText.asText(content.data.title)}</title>
 			</Head>
 			<Header latest_post_uid={latest_post_uid} />
-			<PostMainStyle style={{ color: 'white' }}>
+			<PostMainStyle>
 				<TopStyle>
 					<div>
 						<h1>{RichText.asText(content.data.title)}</h1>
@@ -40,7 +51,9 @@ export default function Post({
 					/>
 					<p>{RichText.asText(content.data.summary)}</p>
 				</TopStyle>
-				<RichTextFilter body={content.data.body[0]} />
+				{content.data.body.map((body: BodySliceType, index: number) => (
+					<RichTextFilter body={body} key={index} />
+				))}
 			</PostMainStyle>
 			<Footer />
 		</>

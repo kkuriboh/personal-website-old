@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import styled from 'styled-components'
 
 import { SectionWShadow } from '../styles/global'
@@ -12,15 +11,29 @@ export default function PostSection({ children }: props) {
 }
 
 const Styles = styled(SectionWShadow)`
+	align-items: flex-start;
+	h3 {
+		font-size: 1.4rem;
+	}
+	// change it to code
+	pre {
+		margin: 0 auto;
+		overflow-x: scroll;
+		outline: 1px solid ${({ theme }) => theme.colors.secondary};
+	}
+	code {
+		color: unset;
+	}
 	.block-img {
+		margin: 0 auto;
 		text-indent: 0;
 	}
 	img {
-		margin: 0;
 		max-height: 60vh;
 		outline: 1px solid ${({ theme }) => theme.colors.secondary};
 	}
 	* {
 		max-width: 100%;
+		margin: 0.4rem 0;
 	}
 `

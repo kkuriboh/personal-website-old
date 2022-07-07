@@ -10,7 +10,7 @@ type props = {
 
 export default function RichTextFilter({ body }: props) {
 	return (
-		<>
+		<PostSection>
 			{body.items.map((item, index) => {
 				const content = RichText.asText(item.content)
 				//#region test
@@ -28,19 +28,14 @@ export default function RichTextFilter({ body }: props) {
 				// 	}
 				// })
 				//#endregion
-				if (content.slice(0, 3) === '$md')
+				if (content.slice(0, 3) === '$md') {
 					return (
-						<PostSection key={index}>
-							<ReactMarkdown>{content.slice(3)}</ReactMarkdown>
-						</PostSection>
+						<ReactMarkdown key={index}>
+							{content.replace('$md', '')}
+						</ReactMarkdown>
 					)
-				else
-					return (
-						<PostSection key={index}>
-							<RichText render={item.content} />
-						</PostSection>
-					)
+				} else return <RichText key={index} render={item.content} />
 			})}
-		</>
+		</PostSection>
 	)
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRef } from 'react'
 
 import styled from 'styled-components'
 import { isServer } from '../utils/isServer'
@@ -10,29 +11,30 @@ type props = {
 
 export default function Header({ latest_post_uid }: props) {
 	const isPhone = !isServer() && window.innerWidth < 600
+	const menu_ref = useRef<HTMLButtonElement>()
+	const list_ref = useRef<HTMLUListElement>()
 
-	function menuClick(element: HTMLButtonElement) {
-		element.classList.toggle('opened')
+	function menu_click() {
+		if (menu_ref.current && list_ref.current) {
+			menu_ref.current.classList.toggle('opened')
 
-		const list = document.getElementsByTagName('ul')[0]
-		if (element.classList.contains('opened')) list.style.display = 'flex'
-		else list.style.display = 'none'
+			if (menu_ref.current.classList.contains('opened'))
+				list_ref.current.style.display = 'flex'
+			else list_ref.current.style.display = 'none'
+		}
 	}
 
 	return (
 		<HeaderStyle>
 			<NavStyle>
-				{isPhone && (
+				{/* URGENT: need to reorganize this */}
+				<Link href="/" passHref>
+					<span className="only_phones">Augusto Pieper</span>
+				</Link>
+				<ul ref={list_ref as any}>
 					<Link href="/" passHref>
-						<span>Augusto Pieper</span>
+						<span className="no_phones">Augusto Pieper</span>
 					</Link>
-				)}
-				<ul>
-					{!isPhone && (
-						<Link href="/" passHref>
-							<span>Augusto Pieper</span>
-						</Link>
-					)}
 					<Link href="/" passHref>
 						<li data-text="HOME">HOME</li>
 					</Link>
@@ -44,25 +46,25 @@ export default function Header({ latest_post_uid }: props) {
 					</Link>
 					<ThemeButton />
 				</ul>
-				{isPhone && (
-					//stolen from here
-					//https://css-tricks.com/line-animated-hamburger-menu/
-					<button
-						onTouchStartCapture={(e) => menuClick(e.currentTarget)}
-					>
-						<svg width="60" height="60" viewBox="0 0 100 100">
-							<path
-								id="line1"
-								d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
-							/>
-							<path id="line2" d="M 20,50 H 80" />
-							<path
-								id="line3"
-								d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
-							/>
-						</svg>
-					</button>
-				)}
+				{/* stolen from here
+					https://css-tricks.com/line-animated-hamburger-menu/ */}
+				<button
+					ref={menu_ref as any}
+					className="only_phones"
+					onClick={menu_click}
+				>
+					<svg width="60" height="60" viewBox="0 0 100 100">
+						<path
+							id="line1"
+							d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
+						/>
+						<path id="line2" d="M 20,50 H 80" />
+						<path
+							id="line3"
+							d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
+						/>
+					</svg>
+				</button>
 			</NavStyle>
 		</HeaderStyle>
 	)
@@ -77,6 +79,9 @@ const HeaderStyle = styled.header`
 `
 
 const NavStyle = styled.nav`
+	.only_phones {
+		display: none;
+	}
 	z-index: 10;
 	color: ${({ theme }) => theme.colors.secondary};
 	width: 100%;
@@ -206,6 +211,13 @@ const NavStyle = styled.nav`
 	}
 
 	@media screen and (max-width: 600px) {
+		.only_phones {
+			display: unset;
+		}
+
+		.no_phones {
+			display: none;
+		}
 		ul {
 			display: none;
 			position: absolute;

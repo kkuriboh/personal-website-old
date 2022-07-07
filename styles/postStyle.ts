@@ -4,6 +4,7 @@ import { SectionWShadow } from './global'
 export const PostMainStyle = styled.main`
 	width: 70%;
 	margin: 2rem auto;
+	color: ${({ theme }) => theme.colors.primary};
 
 	@media screen and (max-width: 600px) {
 		width: 90%;
