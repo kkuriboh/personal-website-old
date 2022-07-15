@@ -76,9 +76,6 @@ export const MainStyle = styled.main`
 	li a {
 		display: block;
 	}
-	footer {
-		text-align: center;
-	}
 `
 
 export const HeaderTopStyle = styled.div`
@@ -129,10 +126,10 @@ export const BlogListStyle = styled.ul`
 			text-decoration: underline;
 		}
 	}
-	li {
+	.blog_item {
 		margin: 1rem 0;
 	}
-	div {
+	#load_list {
 		margin: 0 auto;
 	}
 	@media screen and (max-width: 600px) {

@@ -30,6 +30,7 @@ export default function Post({
 	return (
 		<>
 			<Head>
+				<meta name="description" content="Augusto's blog page" />
 				<title>{RichText.asText(content.data.title)}</title>
 			</Head>
 			<Header latest_post_uid={latest_post_uid} />

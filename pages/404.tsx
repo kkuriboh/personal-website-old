@@ -16,6 +16,7 @@ export default function NotFound({
 	return (
 		<>
 			<Head>
+				<meta name="description" content="404 page" />
 				<title>404</title>
 			</Head>
 			<Header latest_post_uid={latest_post_uid} />

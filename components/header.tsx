@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRef } from 'react'
 
 import styled from 'styled-components'
-import { isServer } from '../utils/isServer'
+
 import ThemeButton from './theme_button'
 
 type props = {
@@ -10,9 +10,8 @@ type props = {
 }
 
 export default function Header({ latest_post_uid }: props) {
-	const isPhone = !isServer() && window.innerWidth < 600
-	const menu_ref = useRef<HTMLButtonElement>()
-	const list_ref = useRef<HTMLUListElement>()
+	const menu_ref = useRef<HTMLButtonElement>(null)
+	const list_ref = useRef<HTMLUListElement>(null)
 
 	function menu_click() {
 		if (menu_ref.current && list_ref.current) {
@@ -27,29 +26,34 @@ export default function Header({ latest_post_uid }: props) {
 	return (
 		<HeaderStyle>
 			<NavStyle>
-				{/* URGENT: need to reorganize this */}
 				<Link href="/" passHref>
-					<span className="only_phones">Augusto Pieper</span>
+					<span className="only_phones home_btn">Augusto Pieper</span>
 				</Link>
-				<ul ref={list_ref as any}>
+				<ul ref={list_ref}>
 					<Link href="/" passHref>
-						<span className="no_phones">Augusto Pieper</span>
+						<li className="no_phones home_btn">Augusto Pieper</li>
 					</Link>
 					<Link href="/" passHref>
-						<li data-text="HOME">HOME</li>
+						<li className="item" data-text="HOME">
+							HOME
+						</li>
 					</Link>
 					<Link href="/blog" passHref>
-						<li data-text="BLOG">BLOG</li>
+						<li className="item" data-text="BLOG">
+							BLOG
+						</li>
 					</Link>
 					<Link href={`/blog/${latest_post_uid}`} passHref>
-						<li data-text="LATEST-POST">LATEST-POST</li>
+						<li className="item" data-text="LATEST-POST">
+							LATEST-POST
+						</li>
 					</Link>
 					<ThemeButton />
 				</ul>
 				{/* stolen from here
 					https://css-tricks.com/line-animated-hamburger-menu/ */}
 				<button
-					ref={menu_ref as any}
+					ref={menu_ref}
 					className="only_phones"
 					onClick={menu_click}
 				>
@@ -87,7 +91,7 @@ const NavStyle = styled.nav`
 	width: 100%;
 	box-shadow: 1px 1px 1px 1px ${({ theme }) => theme.colors.links};
 	padding: 1rem;
-	span {
+	.home_btn {
 		cursor: pointer;
 		color: ${({ theme }) => theme.colors.secondary};
 		font-size: 1.5rem;
@@ -99,7 +103,7 @@ const NavStyle = styled.nav`
 		list-style: none;
 		display: flex;
 	}
-	li {
+	.item {
 		cursor: pointer;
 		position: relative;
 		color: transparent;

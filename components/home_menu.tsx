@@ -45,7 +45,7 @@ export default function Menu() {
 
 	return (
 		<>
-			<ArrowButton onClick={handleClick}>
+			<ArrowButton aria-label="options button" onClick={handleClick}>
 				<svg
 					width="32"
 					height="32"

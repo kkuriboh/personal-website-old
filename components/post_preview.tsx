@@ -31,7 +31,9 @@ export default function PostPreview({ post }: { post: PostType }) {
 					alt={`${post.id}-banner`}
 				/>
 			</article>
-			<Button onClick={redirectToPost}>read more</Button>
+			<Button aria-label="read more button" onClick={redirectToPost}>
+				read more
+			</Button>
 		</Container>
 	)
 }

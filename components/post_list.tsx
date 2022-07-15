@@ -22,7 +22,7 @@ export default function PostList(props: props) {
 					return <PostPreview key={post.id} post={post} />
 
 				return (
-					<li key={post.id}>
+					<li className="blog_item" key={post.id}>
 						<Link href={`/blog/${post.uid}`} passHref>
 							<h3>{post.uid}</h3>
 						</Link>
@@ -30,18 +30,24 @@ export default function PostList(props: props) {
 					</li>
 				)
 			})}
-			<div>
+			<li id="load_list">
 				{props.posts.length > limit && (
-					<Button onClick={() => setLimit(limit + 5)}>
+					<Button
+						aria-label="load more button"
+						onClick={() => setLimit(limit + 5)}
+					>
 						load more...
 					</Button>
 				)}
 				{limit > props.initial_limit && (
-					<Button onClick={() => setLimit(limit - 5)}>
+					<Button
+						aria-label="load less button"
+						onClick={() => setLimit(limit - 5)}
+					>
 						load less...
 					</Button>
 				)}
-			</div>
+			</li>
 		</>
 	)
 }

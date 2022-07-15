@@ -16,6 +16,7 @@ export default function Blog({
 	return (
 		<>
 			<Head>
+				<meta name="description" content="blog landing page" />
 				<title>Blog</title>
 			</Head>
 			<Header latest_post_uid={posts[0].uid} />

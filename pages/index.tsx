@@ -2,6 +2,8 @@ import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 
+import { Link, RichText, RichTextBlock } from 'prismic-reactjs'
+
 import { getPrismicClient } from '../utils/prismic'
 import checkEnv from '../utils/checkEnv'
 import PostList from '../components/post_list'
@@ -15,7 +17,7 @@ import {
 import { sortPosts } from '../utils/sortPosts'
 import Menu from '../components/home_menu'
 import { HomeBodyType, PostType } from '../types/post'
-import { Link, RichText, RichTextBlock } from 'prismic-reactjs'
+import Footer from '../components/footer'
 
 type StaticProps = {
 	posts: PostType[]
@@ -49,6 +51,11 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 	return (
 		<>
 			<Head>
+				<meta
+					name="description"
+					content="awesome web developer portfolio website, open if you want to catact a developer"
+				/>
+
 				<title>Augusto Pieper</title>
 			</Head>
 			<MainStyle>
@@ -72,8 +79,8 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 						</div>
 						<div id="header_image">
 							<Image
-								src={home[0].primary.profile_picture.url}
-								alt={home[0].primary.profile_picture.url}
+								src={'/profile-pic.jpg'}
+								alt={home[0].primary.profile_picture.alt}
 								width={
 									home[0].primary.profile_picture.dimensions
 										.width
@@ -84,6 +91,7 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 								}
 								objectFit="contain"
 								layout="fixed"
+								priority
 							/>
 						</div>
 					</HeaderTopStyle>
@@ -165,18 +173,7 @@ const Home: NextPage<StaticProps> = ({ posts, home, age }) => {
 						<PostList initial_limit={3} posts={posts} />
 					</BlogListStyle>
 				</section>
-				<footer>
-					&copy;Augusto do Monte Pieper - All the source code is under
-					the{' '}
-					<a
-						target="_blank"
-						rel="noreferrer"
-						href="https://mit-license.org/"
-					>
-						MIT
-					</a>{' '}
-					license.
-				</footer>
+				<Footer />
 			</MainStyle>
 		</>
 	)
@@ -197,7 +194,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	return {
 		props: {
 			posts: posts as PostType[],
-			home: home_page.data.body as HomeBodyType,
+			home: home_page.data.body,
 			age: ' ' + age.toString().substring(0, 2),
 		},
 		revalidate: 525600,

@@ -3,7 +3,11 @@ import styled from 'styled-components'
 export default function Footer() {
 	return (
 		<FooterStyle>
-			&copy;{new Date().getFullYear()} - Augusto do Monte Pieper
+			&copy;Augusto do Monte Pieper - All the source code is under the{' '}
+			<a target="_blank" rel="noreferrer" href="https://mit-license.org/">
+				MIT
+			</a>{' '}
+			license.
 		</FooterStyle>
 	)
 }

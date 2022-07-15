@@ -26,8 +26,8 @@ export default function ThemeButton({ style }: any | null) {
 	}
 
 	return (
-		<Style style={style}>
-			<input type="checkbox" onClick={handleTheme} />
+		<Style style={style} htmlFor="theme_button">
+			<input type="checkbox" id="theme_button" onClick={handleTheme} />
 			<span />
 		</Style>
 	)
