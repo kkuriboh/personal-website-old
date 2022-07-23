@@ -22,15 +22,15 @@ export default function PostList(props: props) {
 					return <PostPreview key={post.id} post={post} />
 
 				return (
-					<li className="blog_item" key={post.id}>
+					<div className="blog_item" key={post.id}>
 						<Link href={`/blog/${post.uid}`} passHref>
 							<h3>{post.uid}</h3>
 						</Link>
 						<RichText render={post.data.summary} />
-					</li>
+					</div>
 				)
 			})}
-			<li id="load_list">
+			<div id="load_list">
 				{props.posts.length > limit && (
 					<Button
 						aria-label="load more button"
@@ -47,7 +47,7 @@ export default function PostList(props: props) {
 						load less...
 					</Button>
 				)}
-			</li>
+			</div>
 		</>
 	)
 }
