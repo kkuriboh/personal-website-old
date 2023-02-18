@@ -1,0 +1,85 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["deno"]
+    output          = "../generated/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum Role {
+    POSTER
+    REGULAR_USER
+}
+
+model User {
+    id   String @id @default(uuid())
+    name String
+    role Role
+    Post Post[]
+}
+
+model Post {
+    id         String    @id @default(uuid())
+    title      String
+    slug       String    @unique
+    summary    String
+    tags       String[]
+    author     User      @relation(fields: [author_id], references: [id])
+    author_id  String
+    created_at DateTime  @default(now())
+    updated_at DateTime  @updatedAt
+    Section    Section[]
+}
+
+model Section {
+    id               String           @id @default(uuid())
+    heading          String
+    sub_heading      String?
+    sumary           String?
+    post             Post             @relation(fields: [post_id], references: [id])
+    post_id          String
+    text_sections    TextSection[]
+    midia_sections   MidiaSection[]
+    code_sections    CodeSection[]
+    heading_sections HeadingSection[]
+}
+
+model TextSection {
+    id                String  @id @default(uuid())
+    order_of_priority Int
+    content           String
+    section           Section @relation(fields: [section_id], references: [id])
+    section_id        String
+}
+
+model HeadingSection {
+    id                String  @id @default(uuid())
+    order_of_priority Int
+    title             String
+    subtitle          String?
+    summary           String?
+    section           Section @relation(fields: [section_id], references: [id])
+    section_id        String
+}
+
+model MidiaSection {
+    id                String  @id @default(uuid())
+    order_of_priority Int
+    link              String
+    height            Int
+    width             Int
+    section           Section @relation(fields: [section_id], references: [id])
+    section_id        String
+}
+
+model CodeSection {
+    id                String  @id @default(uuid())
+    order_of_priority Int
+    summary           String?
+    content           String
+    section           Section @relation(fields: [section_id], references: [id])
+    section_id        String
+}
